@@ -36,11 +36,11 @@ public class ObjectController : MonoBehaviour {
             Debug.Log(moveRight);
 
             Vector3 movement = currentRigidbody.position + new Vector3(0.0f, 0.0f, ((moveRight) ? 1.0f : ((moveLeft) ? -1.0f : 0.0f)));
-            Quaternion rotate = new Quaternion(((moveVertical) ? 90.0f : 0.0f), 0.0f, 0.0f);
+           // Quaternion rotate = new Quaternion(((moveVertical) ? 90.0f : 0.0f), 0.0f, 0.0f, 0.0f);
 
             //currentObject.transform.Rotate((moveVertical) ? 90 : 0, 0, 0);
             //currentRigidbody.transform.position += movement;
-            currentRigidbody.MoveRotation(rotate);
+            //currentRigidbody.MoveRotation(rotate);
             currentRigidbody.MovePosition(movement);
 
             update = true;
