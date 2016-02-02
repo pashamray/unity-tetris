@@ -10,35 +10,41 @@ public class RespawnObjects : MonoBehaviour {
     public GameObject objT;
     public GameObject objS;
 
+    private GameObject currObject;
+    private Rigidbody currObjectRb;
+
     private IList<GameObject> objsArray = new List<GameObject>();
     // Use this for initialization
     void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
-    void Awake()
     {
         objsArray.Add(objI);
         objsArray.Add(objJ);
         objsArray.Add(objO);
         objsArray.Add(objT);
         objsArray.Add(objS);
+
+        MakeRandomObject();
     }
 
+    void FixedUpdate()
+    {
+        if ((currObjectRb == null) || ((currObjectRb.transform.position.y != transform.position.y) && (currObjectRb.velocity.sqrMagnitude == 0)))
+        {
+            MakeRandomObject();
+        }
+    }
 
-    public GameObject MakeObject() //Корутина должна возвращать IEnumerator 
+    private void MakeRandomObject()
     {
         int random = Mathf.CeilToInt(Random.value * objsArray.Count) - 1;
+        currObject = MakeObject(random);
+        currObjectRb = currObject.GetComponent<Rigidbody>();
+    }
 
-        GameObject cl = (GameObject) Instantiate(objsArray[random], transform.position, transform.rotation);
-        cl.transform.rotation = new Quaternion(0, (Random.value > 0.5) ? 180 : 0, 0, 0);
-
-        return cl;        
+    private GameObject MakeObject(int index) //Корутина должна возвращать IEnumerator 
+    {
+        GameObject co = (GameObject) Instantiate(objsArray[index], transform.position, transform.rotation);
+        
+        return co;        
     }
 }
